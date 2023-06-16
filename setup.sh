@@ -15,7 +15,7 @@ git clone https://github.com/RubenShaw1/Pi-LED-Control.git
 
 
 
-pip install termcolor, flask, requests
+pip install termcolor flask requests
 
 PYTHON_SCRIPT="$PWD/led.py"
 
