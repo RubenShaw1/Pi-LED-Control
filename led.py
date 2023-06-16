@@ -3,7 +3,7 @@ from flask import Flask, render_template
 from termcolor import colored
 import os
 import requests
-app = Flask.Flask(__name__)
+app = Flask(__name__)
 
 app.config["DEBUG"] = false
 
