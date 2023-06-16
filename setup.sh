@@ -10,7 +10,7 @@ if [[ $EUID -ne 0 ]]; then
   echo "This script must be run as root."
   exit 1
 fi
-
+pip install termcolor, flask, requests
 PYTHON_SCRIPT="$PWD/led.py"
 
 # Create a Systemd service unit file
