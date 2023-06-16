@@ -13,10 +13,8 @@ fi
 pip install termcolor, flask, requests
 PYTHON_SCRIPT="$PWD/led.py"
 
-# Create a Systemd service unit file
 SERVICE_FILE="/etc/systemd/system/LED-Control.service"
 
-# Write the service unit file
 cat >$SERVICE_FILE <<EOL
 [Unit]
 Description=LED-Control
@@ -24,9 +22,6 @@ After=network.target
 
 [Service]
 ExecStart=/usr/bin/python3 $PYTHON_SCRIPT
-WorkingDirectory=$(dirname "$PYTHON_SCRIPT")
-User=nobody
-Group=nogroup
 Restart=always
 
 [Install]
