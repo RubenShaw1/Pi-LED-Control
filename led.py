@@ -5,7 +5,7 @@ import os
 import requests
 app = Flask(__name__)
 
-app.config["DEBUG"] = false
+app.config["DEBUG"] = False
 
 
 def ledOn():
