@@ -1,5 +1,6 @@
 #!/bin/bash
-current_directory=$(pwd)
+cd ~
+current_directory=$(pwd)/LED_Control/Pi-LED-Control
 if [[ $EUID -ne 0 ]]; then
   echo "This script must be run as root."
   exit 1
