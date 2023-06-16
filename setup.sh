@@ -1,5 +1,5 @@
 #!/bin/bash
-
+current_directory=$(pwd)
 if [[ $EUID -ne 0 ]]; then
   echo "This script must be run as root."
   exit 1
@@ -17,7 +17,7 @@ git clone https://github.com/RubenShaw1/Pi-LED-Control.git
 
 pip install termcolor flask requests
 
-PYTHON_SCRIPT="$PWD/led.py"
+PYTHON_SCRIPT="$current_directory/led.py"
 
 SERVICE_FILE="/etc/systemd/system/LED-Control.service"
 
