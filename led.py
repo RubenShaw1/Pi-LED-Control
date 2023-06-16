@@ -9,12 +9,12 @@ app.config["DEBUG"] = False
 
 
 def ledOn():
-   os.system("echo 1 | sudo tee /sys/class/leds/led[0]/brightness")
-   os.system("echo 0 | sudo tee /sys/class/leds/led[1]/brightness")
+   os.system("echo 255 | sudo tee /sys/class/leds/ACT/brightness")
+   os.system("echo 255 | sudo tee /sys/class/leds/PWR/brightness")
    print (colored("On", "green"))
 def ledOff():
-   os.system("echo 0 | sudo tee /sys/class/leds/led[0]/brightness")
-   os.system("echo 0 | sudo tee /sys/class/leds/led[1]/brightness")
+   os.system("echo 0 | sudo tee /sys/class/leds/ACT/brightness")
+   os.system("echo 0 | sudo tee /sys/class/leds/PWR/brightness")
    print (colored("Off", "red"))
 
 
