@@ -18,12 +18,18 @@ def ledOff():
    print (colored("Off", "red"))
 
 
-@app.route('/on')
+@app.route('/led/on')
 def on():
     ledOn()
     return 'Led is on'
-
-@app.route('/off')
+@app.route('/led/status')
+def status():
+    brightness = int(os.popen("cat /sys/class/leds/PWR/brightness").read())
+    if brightness > 1:
+        return "ON"
+    elif brightness == 0:
+        return "OFF"
+@app.route('/led/off')
 def off():
     ledOff()
     return 'Led is off'
