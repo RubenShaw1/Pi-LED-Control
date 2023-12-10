@@ -19,6 +19,7 @@ SCRIPT_DIR="/home/$CURRENT_USER/LED_Control"
 if [ -d "$SCRIPT_DIR" ]; then
   echo "The directory $SCRIPT_DIR exists. Deleting..."
   rm -rf "$SCRIPT_DIR"
+  systemctl stop LED-Control
 fi
 
 # Create the directory
