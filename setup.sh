@@ -16,11 +16,13 @@ fi
 
 SCRIPT_DIR="/home/$CURRENT_USER/LED_Control"
 
-if [ -d "$SCRIPT_DIR" ] && [ "$(ls -A "$SCRIPT_DIR")" ]; then
-  echo "The directory $SCRIPT_DIR exists and is not empty. Clearing contents..."
-  rm -rf "$SCRIPT_DIR"/*
+if [ -d "$SCRIPT_DIR" ]; then
+  echo "The directory $SCRIPT_DIR exists. Deleting..."
+  rm -rf "$SCRIPT_DIR"
 fi
 
+# Create the directory
+mkdir -p "$SCRIPT_DIR"
 
 git clone https://github.com/RubenShaw1/Pi-LED-Control.git "$SCRIPT_DIR"
 
@@ -48,4 +50,4 @@ EOL
 systemctl daemon-reload
 systemctl enable LED-Control
 systemctl start LED-Control
-systemctl status LED-Control
+systemctl status LED-Control --no-pager -l
