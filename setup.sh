@@ -16,9 +16,9 @@ fi
 
 SCRIPT_DIR="/home/$CURRENT_USER/LED_Control"
 
-# Create the directory if it doesn't exist
-if [ ! -d "$SCRIPT_DIR" ]; then
-  mkdir -p "$SCRIPT_DIR"
+if [ -d "$SCRIPT_DIR" ] && [ "$(ls -A "$SCRIPT_DIR")" ]; then
+  echo "The directory $SCRIPT_DIR exists and is not empty. Clearing contents..."
+  rm -rf "$SCRIPT_DIR"/*
 fi
 
 
