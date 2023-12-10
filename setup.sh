@@ -1,22 +1,27 @@
 #!/bin/bash
 
-u="$USER"
-
-if [[ $EUID -ne 0 ]]; then
-  echo "This script must be run as root."
+if [[ $EUID -eq 0 ]]; then
+  echo "This script should not be run as root."
   exit 1
 fi
 
-SCRIPT_DIR="/home/$u/LED_Control"
+CURRENT_USER=$SUDO_USER
 
 
-if [ -d "$SCRIPT_DIR" ]; then
-  systemctl stop LED-Control
-  rm "$SCRIPT_DIR" -r
+if [ -z "$CURRENT_USER" ]; then
+  echo "Unable to determine the invoking user."
+  exit 1
 fi
 
 
-cd /home/"$u" || exit
+SCRIPT_DIR="/home/$CURRENT_USER/LED_Control"
+
+# Create the directory if it doesn't exist
+if [ ! -d "$SCRIPT_DIR" ]; then
+  mkdir -p "$SCRIPT_DIR"
+fi
+
+
 git clone https://github.com/RubenShaw1/Pi-LED-Control.git "$SCRIPT_DIR"
 
 
