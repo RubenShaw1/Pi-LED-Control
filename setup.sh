@@ -1,28 +1,33 @@
 #!/bin/bash
-cd ~
+
 u="$USER"
+
 if [[ $EUID -ne 0 ]]; then
   echo "This script must be run as root."
   exit 1
 fi
 
-cd ~
-rm LED_Control -r
-mkdir LED_Control
-cd LED_Control
-git clone https://github.com/RubenShaw1/Pi-LED-Control.git
-systemctl stop LED-Control
+SCRIPT_DIR="/home/$u/LED_Control"
 
 
+if [ -d "$SCRIPT_DIR" ]; then
+  systemctl stop LED-Control
+  rm "$SCRIPT_DIR" -r
+fi
 
 
-pip install termcolor flask requests
+cd /home/"$u" || exit
+git clone https://github.com/RubenShaw1/Pi-LED-Control.git "$SCRIPT_DIR"
 
-PYTHON_SCRIPT="/home/$u/LED_Control/Pi-LED-Control/led.py"
+
+pip install flask termcolor
+
+
+PYTHON_SCRIPT="$SCRIPT_DIR/led.py"
 
 SERVICE_FILE="/etc/systemd/system/LED-Control.service"
 
-cat >$SERVICE_FILE <<EOL
+cat >"$SERVICE_FILE" <<EOL
 [Unit]
 Description=LED-Control
 After=network.target
@@ -36,10 +41,6 @@ WantedBy=multi-user.target
 EOL
 
 systemctl daemon-reload
-
-
 systemctl enable LED-Control
 systemctl start LED-Control
-
-
 systemctl status LED-Control
